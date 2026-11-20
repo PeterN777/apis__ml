@@ -1,7 +1,8 @@
 import joblib
+from flask_cors import CORS
 from flask import Flask, jsonify, request
 app= Flask(__name__)
-
+CORS(app)
 @app.route("/home")
 def home():
     return "Welcome home 00001"

@@ -42,9 +42,14 @@ def recipe():
 
     model = joblib.load("Model4.joblib")
     recipe=[[flour,milk,sugar,butter,egg,baking_powder,vanilla,salt]] 
-    outcome= model.predict(recipe)
-    # return f'We will be making a {outcome}'
-    return jsonify({"recipe": outcome})
+   
+    outcome = model.predict(recipe)[0]
+
+    # Convert NumPy scalar (e.g. np.str_, np.int64, np.float64) to a native Python type
+    if hasattr(outcome, "item"):
+        outcome = outcome.item()
+
+    return jsonify({"recipe": str(outcome)})
 
 
 # app.run(debug=True)
